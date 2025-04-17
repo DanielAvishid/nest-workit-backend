@@ -33,7 +33,7 @@ class Task {
   @Prop({ type: Object })
   priority: any;
 
-  @Prop()
+  @Prop({ type: Object })
   timeline: any;
 
   @Prop([Object])
