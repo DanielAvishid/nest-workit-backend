@@ -29,7 +29,7 @@
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/platform-socket.io": "^11.0.20",
     "@nestjs/websockets": "^11.0.20",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "mongoose": "^8.13.2",
     "passport": "^0.7.0",
