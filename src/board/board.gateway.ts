@@ -57,7 +57,7 @@ export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnec
     }
   }
 
-  broadcast({ type, data, room = null, userId = null }) {
+  broadcast({ type, data, room = null, userId = null }: { type: string, data: any, room?: string | null, userId?: string | null }) {
     this.logger.log(`Broadcasting event: ${type}`);
     
     if (room && userId) {
@@ -77,8 +77,9 @@ export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnec
 
   private getUserSockets(userId: string): Socket[] {
     if (!userId) return [];
-    const sockets = [];
-    this.server.sockets.forEach((socket) => {
+    const sockets: Socket[] = [];
+    const socketsMap = this.server.sockets.sockets;
+    socketsMap.forEach((socket) => {
       if (socket['userId'] === userId) {
         sockets.push(socket);
       }

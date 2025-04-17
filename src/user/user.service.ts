@@ -24,11 +24,11 @@ export class UserService {
     return this.userModel.find(criteria).exec();
   }
 
-  async findById(id: string): Promise<User> {
+  async findById(id: string): Promise<User | null> {
     return this.userModel.findById(id).select('-password').exec();
   }
 
-  async findByUsername(username: string): Promise<User> {
+  async findByUsername(username: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ username }).exec();
   }
 
@@ -42,7 +42,7 @@ export class UserService {
     return createdUser.save();
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
     return this.userModel
       .findByIdAndUpdate(id, updateUserDto, { new: true })
       .select('-password')

@@ -36,7 +36,7 @@ export class BoardController {
     this.websocketGateway.broadcast({
       type: 'change-board',
       data: updatedBoard,
-      room: id,
+      room: id || null,
       userId: req.user.userId,
     });
     return updatedBoard;

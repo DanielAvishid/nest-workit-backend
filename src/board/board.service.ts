@@ -18,7 +18,7 @@ export class BoardService {
     return this.boardModel.find(criteria).exec();
   }
 
-  async findById(id: string): Promise<Board> {
+  async findById(id: string): Promise<Board | null> {
     return this.boardModel.findById(id).exec();
   }
 
@@ -27,7 +27,7 @@ export class BoardService {
     return createdBoard.save();
   }
 
-  async update(id: string, updateBoardDto: UpdateBoardDto): Promise<Board> {
+  async update(id: string, updateBoardDto: UpdateBoardDto): Promise<Board | null> {
     return this.boardModel
       .findByIdAndUpdate(id, updateBoardDto, { new: true })
       .exec();

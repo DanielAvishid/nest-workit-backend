@@ -21,7 +21,8 @@ export class AuthService {
       throw new UnauthorizedException('Invalid username or password');
     }
     
-    const { password: _, ...result } = user.toObject();
+    const userObject = user.toJSON ? user.toJSON() : user;
+    const { password: _, ...result } = userObject;
     return result;
   }
 
