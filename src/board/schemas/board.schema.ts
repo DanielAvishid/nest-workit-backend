@@ -13,10 +13,10 @@ class Activity {
   @Prop()
   createdAt: number;
 
-  @Prop()
+  @Prop({ type: Object })
   byMember: any;
 
-  @Prop()
+  @Prop({ type: Object })
   task: any;
 }
 
