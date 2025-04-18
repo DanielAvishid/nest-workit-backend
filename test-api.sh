@@ -1,5 +1,5 @@
 
-BASE_URL="https://user:cb2c659c3fd6e19ba7ceb00b2523aef6@workit-backend-app-tunnel-t177r6qd.devinapps.com"
+BASE_URL="https://user:e97b27cdcf92dd2455ca0a3987672083@workit-backend-app-tunnel-hx2e0m4b.devinapps.com"
 COOKIE_FILE="cookies.txt"
 
 echo "Testing Workit Backend API..."
