@@ -1,11 +1,41 @@
 import { Controller, Post, Body, Res, HttpException, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 
+class LoginDto {
+  username: string;
+  password: string;
+}
+
+class SignupDto {
+  username: string;
+  password: string;
+  fullname: string;
+  imgUrl?: string;
+}
+
+@ApiTags('auth')
 @Controller('api/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @ApiOperation({ summary: 'Login', description: 'Authenticate user and return user details with JWT cookie' })
+  @ApiBody({
+    type: LoginDto,
+    description: 'User credentials',
+    examples: {
+      example1: {
+        value: {
+          username: 'johndoe',
+          password: 'password123'
+        },
+        summary: 'Login credentials example'
+      }
+    }
+  })
+  @ApiResponse({ status: 200, description: 'User authenticated successfully' })
+  @ApiResponse({ status: 401, description: 'Invalid username or password' })
   @Post('login')
   async login(@Body() body: any, @Res({ passthrough: true }) response: Response) {
     try {
@@ -23,6 +53,24 @@ export class AuthController {
     }
   }
 
+  @ApiOperation({ summary: 'Signup', description: 'Register a new user and return user details with JWT cookie' })
+  @ApiBody({
+    type: SignupDto,
+    description: 'User registration details',
+    examples: {
+      example1: {
+        value: {
+          username: 'johndoe',
+          password: 'password123',
+          fullname: 'John Doe',
+          imgUrl: 'https://example.com/avatar.jpg'
+        },
+        summary: 'Signup details example'
+      }
+    }
+  })
+  @ApiResponse({ status: 200, description: 'User registered successfully' })
+  @ApiResponse({ status: 400, description: 'Bad request - Username taken or missing details' })
   @Post('signup')
   async signup(@Body() body: any, @Res({ passthrough: true }) response: Response) {
     try {
@@ -42,6 +90,8 @@ export class AuthController {
     }
   }
 
+  @ApiOperation({ summary: 'Logout', description: 'Logout user by clearing JWT cookie' })
+  @ApiResponse({ status: 200, description: 'User logged out successfully' })
   @Post('logout')
   async logout(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('loginToken');
