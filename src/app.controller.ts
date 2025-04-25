@@ -7,16 +7,5 @@ export class AppController {
 
   @Get()
   getHello(): any {
-    return {
-      message: 'Workit Backend API',
-      version: '1.0.0',
-      endpoints: [
-        '/api/auth/login',
-        '/api/auth/signup',
-        '/api/auth/logout',
-        '/api/user',
-        '/api/board'
-      ]
-    };
-  }
+    return "Hello World";
 }
