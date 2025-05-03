@@ -44,9 +44,12 @@ export class AuthController {
       const { access_token } = await this.authService.login(user);
       
       response.cookie('loginToken', access_token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // cookie only sent over HTTPS in production
-      });
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production', // Required for HTTPS
+  sameSite: 'none', // Required for cross-site cookies
+  path: '/',
+  maxAge: 1000 * 60 * 60 * 24 * 7, // Optional: 7 days
+});
       
       return user;
     } catch (error) {
