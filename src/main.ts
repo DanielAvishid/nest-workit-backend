@@ -11,13 +11,8 @@ async function bootstrap() {
   
   app.enableCors({
     origin: [
-      'http://127.0.0.1:5173',
       'https://workit-next-front.vercel.app',
-      'http://localhost:5173',
-      'http://localhost:5174',
-      'http://127.0.0.1:3000',
       'http://localhost:3000',
-      'https://workit-backend-two.vercel.app',
     ],
     credentials: true,
   });
