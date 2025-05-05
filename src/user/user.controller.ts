@@ -3,6 +3,15 @@ import { UserService } from './user.service';
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { Request } from 'express';
+
+interface AuthenticatedRequest extends Request {
+  user: {
+    userId: string;
+    username: string;
+    fullname: string;
+  };
+}
 
 @ApiTags('users')
 @ApiBearerAuth('JWT-auth')
@@ -26,9 +35,9 @@ export class UserController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'User not found' })
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  async getUser(@Param('id') id: string) {
-    return this.userService.findById(id);
+  @Get('me')
+  getMe(@Req() req: AuthenticatedRequest) {
+    return this.userService.findById(req.user.userId);
   }
 
   @ApiOperation({ summary: 'Update user', description: 'Updates a user by ID' })
