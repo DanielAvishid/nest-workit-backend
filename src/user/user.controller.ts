@@ -37,7 +37,8 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('me')
   getMe(@Req() req: AuthenticatedRequest) {
-    return this.userService.findById(req.user.userId);
+    const userId = req.user.userId;
+    return this.userService.findById(userId);
   }
 
   @ApiOperation({ summary: 'Update user', description: 'Updates a user by ID' })
