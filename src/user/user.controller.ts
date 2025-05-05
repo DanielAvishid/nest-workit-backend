@@ -29,11 +29,6 @@ export class UserController {
     return this.userService.findAll(query);
   }
 
-  @ApiOperation({ summary: 'Get user by ID', description: 'Retrieves a specific user by ID' })
-  @ApiParam({ name: 'id', description: 'User ID' })
-  @ApiResponse({ status: 200, description: 'User retrieved successfully' })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiResponse({ status: 404, description: 'User not found' })
   @UseGuards(JwtAuthGuard)
   @Get('me')
   getMe(@Req() req: AuthenticatedRequest) {
